@@ -11,12 +11,12 @@ import lombok.ToString;
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
-@Document(collection = "sign_in")
-public class SignIn extends AbstractDomain {
+@Document(collection = "issue")
+public class Issue extends AbstractDomain {
+
+  @Field("description")
+  private String description;
 
   @Field("user_id")
   private String userId;
-
-  @Field("sign_in_date")
-  private String signInDate;
 }

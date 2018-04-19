@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active:
+    - dev
+  data:
+    mongodb:
+      host: 149.129.255.119
+      port: 27017
+      database: diet
+      username: admin
+      password: admin
+      
+server:
+  port: 443
+  context-path: /diet
+  ssl:
+    key-store: classpath:1523975587641.pfx
+    key-store-password: 1523975587641
+    key-store-type: PKCS12
+    
+logging: 
+  level:
+    root: info 
+
+
+
+
+

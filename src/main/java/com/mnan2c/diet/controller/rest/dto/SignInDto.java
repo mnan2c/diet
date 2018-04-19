@@ -1,7 +1,5 @@
 package com.mnan2c.diet.controller.rest.dto;
 
-import java.time.ZonedDateTime;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SignInDto extends AbstractDto {
 
-	private String userId;
+  private String userId;
 
-	private ZonedDateTime signInDate = ZonedDateTime.now();
+  private String signInDate;
 }
