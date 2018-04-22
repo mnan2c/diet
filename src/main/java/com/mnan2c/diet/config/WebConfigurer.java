@@ -80,7 +80,13 @@ public class WebConfigurer extends WebMvcConfigurerAdapter
   public void addInterceptors(InterceptorRegistry registry) {
     InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
     // 排除配置
-    addInterceptor.excludePathPatterns("/error", "/login**", "/users/register");
+    addInterceptor.excludePathPatterns( //
+        "/error", //
+        "/login**", //
+        "/users/register", //
+        "/users/sendsms", //
+        "/api/**" //
+    );
     // 拦截配置
     addInterceptor.addPathPatterns("/**");
   }
