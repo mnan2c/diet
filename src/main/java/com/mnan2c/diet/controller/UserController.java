@@ -48,7 +48,7 @@ public class UserController extends AbstractController<UserDto> {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView register(@ModelAttribute("object") UserDto user, RedirectAttributes redirectAttributes) {
     try {
-      // validateVerifyCode(user);
+      validateVerifyCode(user);
       userService.create(user);
     } catch (FieldListException e) {
       redirectAttributes.addFlashAttribute("message", e.getMessage());
