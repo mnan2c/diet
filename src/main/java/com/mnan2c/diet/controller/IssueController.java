@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mnan2c.diet.controller.rest.dto.IssueDto;
 import com.mnan2c.diet.service.IDietCrudService;
@@ -45,5 +46,11 @@ public class IssueController extends AbstractController<IssueDto> {
   @Override
   protected String getControllerUrl() {
     return "/issues";
+  }
+
+  @Override
+  protected void addExtraAttributeForCreatePage(ModelAndView modelAndView) {
+    // TODO Auto-generated method stub
+
   }
 }

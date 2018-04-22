@@ -2,9 +2,12 @@ package com.mnan2c.diet.controller;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +18,8 @@ import com.mnan2c.diet.service.IDietCrudService;
 
 
 public abstract class AbstractController<T extends AbstractDto> {
+  @Inject
+  protected HttpSession session;
 
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   public ModelAndView listPage() {
@@ -28,6 +33,7 @@ public abstract class AbstractController<T extends AbstractDto> {
   @RequestMapping(value = "/new", method = RequestMethod.GET)
   public ModelAndView createPage() {
     ModelAndView modelAndView = new ModelAndView(getMainPage() + "/form");
+    addExtraAttributeForCreatePage(modelAndView);
     return modelAndView;
   }
 
@@ -37,6 +43,25 @@ public abstract class AbstractController<T extends AbstractDto> {
     return new ModelAndView("redirect:" + getControllerUrl() + "/list");
   }
 
+  /**
+   * common method to go to specific page
+   * 
+   * @param pageUrl the url of the page
+   * @return
+   */
+  @RequestMapping(value = "/page/{pageUrl}", method = RequestMethod.GET)
+  public ModelAndView toPage(@PathVariable String pageUrl) {
+    return new ModelAndView(pageUrl);
+  }
+
+  protected ModelAndView redirectTo(String pageName) {
+    return new ModelAndView("redirect:" + pageName);
+  }
+
+  protected ModelAndView forwardTo(String pageName) {
+    return new ModelAndView("forward:" + pageName);
+  }
+
   protected abstract String getMainPage();
 
   protected abstract String getControllerUrl();
@@ -44,4 +69,6 @@ public abstract class AbstractController<T extends AbstractDto> {
   protected abstract List<T> getListObjects();
 
   public abstract IDietCrudService<T> getCrudService();
+
+  protected abstract void addExtraAttributeForCreatePage(ModelAndView modelAndView);
 }

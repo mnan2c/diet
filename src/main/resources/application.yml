@@ -1,7 +1,14 @@
 spring:
-  profiles:
-    active:
-    - dev
+  thymeleaf:
+    mode: html
+    cache: false
+#  mvc:
+#    static-path-pattern: classpath:/static/**
+#  resources:
+#    static-locations: classpath:/static/,classpath:/public/
+#  profiles:
+#    active:
+#    - dev
   data:
     mongodb:
       host: 149.129.255.119
@@ -12,7 +19,7 @@ spring:
       
 server:
   port: 443
-  context-path: /diet
+  context-path: /
   ssl:
     key-store: classpath:1523975587641.pfx
     key-store-password: 1523975587641

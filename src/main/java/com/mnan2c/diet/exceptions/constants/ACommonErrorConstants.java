@@ -1,4 +1,4 @@
-package com.mnan2c.diet.service.errorconstants;
+package com.mnan2c.diet.exceptions.constants;
 
 public final class ACommonErrorConstants {
 

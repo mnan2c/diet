@@ -11,6 +11,9 @@ public class IssueConverter extends AbstractConverter<Issue, IssueDto> {
 
   @Override
   public Issue dtoToEntity(IssueDto dto) {
+    if (dto == null) {
+      return null;
+    }
     Issue entity = new Issue();
     BeanUtils.copyProperties(dto, entity);
     return entity;
@@ -18,6 +21,9 @@ public class IssueConverter extends AbstractConverter<Issue, IssueDto> {
 
   @Override
   public IssueDto entityToDto(Issue entity) {
+    if (entity == null) {
+      return null;
+    }
     IssueDto dto = new IssueDto();
     copyEntityToDto(entity, dto);
     return dto;

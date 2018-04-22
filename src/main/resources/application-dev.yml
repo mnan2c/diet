@@ -5,7 +5,7 @@ spring:
   mvc:
     static-path-pattern: classpath:/templates/**
   resources:
-    static-locations: classpath:/static,classpath:/public
+    static-locations: classpath:/static/,classpath:/public/
   data:
     mongodb:
       host: localhost
@@ -16,7 +16,7 @@ spring:
       
 server:
   port: 443
-  context-path: /diet
+  context-path: /
   ssl:
     key-store: classpath:1523975587641.pfx
     key-store-password: 1523975587641

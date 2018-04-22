@@ -8,4 +8,7 @@ public interface UserRepository extends IDietRepository<User, String> {
 
   @Query("{'name':?0}")
   User findByName(String name);
+
+  @Query("{'$and':[{'name':?0},{'password':?1}]}")
+  User findByNameAndPassword(String name, String password);
 }

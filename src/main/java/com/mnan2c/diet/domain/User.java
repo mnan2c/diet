@@ -14,12 +14,15 @@ import lombok.ToString;
 @Document(collection = "user")
 public class User extends AbstractDomain {
 
-	@Field("name")
-	private String name;
+  @Field("name")
+  private String name;
 
-	@Field("open_id")
-	private String openId;
+  @Field("open_id")
+  private String openId;
 
-	@Field("cellphone_number")
-	private String cellphoneNumber;
+  @Field("cellphone_number")
+  private String cellphoneNumber;
+
+  @Field("password")
+  private String password;
 }

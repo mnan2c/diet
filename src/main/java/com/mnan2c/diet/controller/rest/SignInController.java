@@ -32,7 +32,7 @@ public class SignInController extends ACrudController<SignIn, SignInDto> {
     return "/api/signin/";
   }
 
-  @RequestMapping(value = "/ontheway", method = RequestMethod.POST)
+  @RequestMapping(value = "/forfit", method = RequestMethod.GET)
   public ResponseEntity<Map<String, Object>> signIn(@RequestParam String name) throws FieldListException {
     return new ResponseEntity<>(signInService.signInOnTheWay(name), HttpStatus.OK);
   }
