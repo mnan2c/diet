@@ -40,7 +40,7 @@ public class UserController extends AbstractController<UserDto> {
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView createPage() {
-    ModelAndView modelAndView = new ModelAndView("/register");
+    ModelAndView modelAndView = new ModelAndView("register");
     addExtraAttributeForCreatePage(modelAndView);
     return modelAndView;
   }

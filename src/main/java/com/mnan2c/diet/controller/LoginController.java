@@ -28,7 +28,7 @@ public class LoginController extends AbstractController<UserDto> {
 
   @RequestMapping(value = {"/login", "/", ""}, method = RequestMethod.GET)
   public ModelAndView loginPage() {
-    ModelAndView modelAndView = new ModelAndView("/login");
+    ModelAndView modelAndView = new ModelAndView("login");
     modelAndView.addObject("object", new UserDto());
     return modelAndView;
   }
@@ -38,21 +38,21 @@ public class LoginController extends AbstractController<UserDto> {
     if (userService.findUserByName(user.getName()) == null) {
       log.error("user not exits, name=[{}]", user.getName());
       result.rejectValue("name", null, null, "user.not.exist");
-      return new ModelAndView("/login").addAllObjects(result.getModel());
+      return new ModelAndView("login").addAllObjects(result.getModel());
     }
     if (userService.findUserByNameAndPassword(user.getName(), user.getPassword()) == null) {
       log.error("invalid password, name=[{}],password=[{}]", user.getName(), user.getPassword());
       result.rejectValue("password", null, null, "invalid.password");
-      return new ModelAndView("/login").addAllObjects(result.getModel());
+      return new ModelAndView("login").addAllObjects(result.getModel());
     }
     // 设置session
     session.setAttribute(DietConstants.SESSION_USER, user);
-    return new ModelAndView("/index");
+    return new ModelAndView("index");
   }
 
   @GetMapping("/index")
   public ModelAndView indexPage() {
-    return new ModelAndView("/index");
+    return new ModelAndView("index");
   }
 
   @Override
