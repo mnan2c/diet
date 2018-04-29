@@ -50,43 +50,43 @@ public abstract class AbstractService<T extends AbstractDomain, D extends Abstra
   }
 
   @Override
-  public Page<D> getPage(Pageable pageable) {
+  public Page<D> findPage(Pageable pageable) {
     Page<T> page = repository.findAll(pageable);
     return converter.getDtoPages(page, pageable);
   }
 
   @Override
-  public Page<D> getPage(Pageable pageable, String search, String query) {
+  public Page<D> findPage(Pageable pageable, String search, String query) {
     // TODO
     return null;
   }
 
   @Override
-  public Page<D> getPage(String search, String query, String expand, Pageable pageable, Boolean withPaginationInfo) {
+  public Page<D> findPage(String search, String query, String expand, Pageable pageable, Boolean withPaginationInfo) {
     // TODO
     return null;
   }
 
   @Override
-  public D getById(String id) {
+  public D findById(String id) {
     T entity = repository.findOne(id);
     return converter.entityToDto(entity);
   }
 
   @Override
-  public D getById(String id, String expand) {
+  public D findById(String id, String expand) {
     // TODO
     return null;
   }
 
   @Override
-  public List<D> getAll(List<String> ids) {
+  public List<D> findAll(List<String> ids) {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public List<D> getAll(List<String> ids, String expand) {
+  public List<D> findAll(List<String> ids, String expand) {
     // TODO
     return null;
   }

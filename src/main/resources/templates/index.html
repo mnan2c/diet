@@ -1,16 +1,14 @@
  <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="layout/layout">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="/images/favicon.ico">
     <title>首页</title>
   </head>
   <body>
-   <div>
+   <div layout:fragment="content">
    	<h2>Welcome to 小常's home!</h2>
    	</div>
   </body>

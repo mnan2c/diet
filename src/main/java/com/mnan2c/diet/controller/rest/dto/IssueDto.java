@@ -19,4 +19,6 @@ public class IssueDto extends AbstractDto {
 
   @Transient
   private String createDateString;
+
+  private UserDto user;
 }
