@@ -13,12 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mnan2c.diet.controller.rest.dto.IssueDto;
 import com.mnan2c.diet.service.IDietCrudService;
 import com.mnan2c.diet.service.IssueService;
+import com.mnan2c.diet.service.UserService;
 
 @RequestMapping("/issues")
 @Controller
 public class IssueController extends AbstractController<IssueDto> {
   @Inject
   private IssueService issueService;
+  @Inject
+  private UserService userService;
 
   @Override
   protected String getMainPage() {
@@ -36,6 +39,7 @@ public class IssueController extends AbstractController<IssueDto> {
         .stream() //
         .map(issue -> {
           issue.setCreateDateString(issue.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+          issue.setUser(userService.findById(issue.getUserId()));
           return issue;
         }) //
         .collect(Collectors.toList());

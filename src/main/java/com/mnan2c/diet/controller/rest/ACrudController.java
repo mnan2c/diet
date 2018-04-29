@@ -67,7 +67,7 @@ public abstract class ACrudController<E extends AbstractDomain, DTO extends Abst
   @GetMapping("/{id}")
   public ResponseEntity<DTO> getById(@PathVariable String id) {
     log.debug("request to get entity by id [{}]", id);
-    DTO result = service.getById(id);
+    DTO result = service.findById(id);
     return Optional.ofNullable(result) //
         .map(resultDto -> new ResponseEntity<>(result, HttpStatus.OK))//
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -77,7 +77,7 @@ public abstract class ACrudController<E extends AbstractDomain, DTO extends Abst
   public ResponseEntity<List<DTO>> getAll() throws URISyntaxException {
     log.debug("request to get all entities.");
     Pageable pageable = new PageRequest(0, Integer.MAX_VALUE);
-    Page<DTO> page = service.getPage(pageable);
+    Page<DTO> page = service.findPage(pageable);
     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, getApiRootPath());
     return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
   }
