@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.mnan2c.diet.domain.constants.DietConstants;
+import com.mnan2c.diet.constants.DietConstants;
 import com.mnan2c.diet.utils.Jsr310DateTimeSerializer;
 import com.mnan2c.diet.utils.Jsr310LocalDateDeserializer;
 

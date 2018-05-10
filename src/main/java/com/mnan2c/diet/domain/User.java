@@ -1,5 +1,7 @@
 package com.mnan2c.diet.domain;
 
+import java.util.Date;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,6 +21,9 @@ public class User extends AbstractDomain {
 
   @Field("open_id")
   private String openId;
+
+  @Field("birth_day")
+  private Date birthDay;
 
   @Field("cellphone_number")
   private String cellphoneNumber;

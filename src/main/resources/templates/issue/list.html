@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/layout">
+	layout:decorate="layout/layout">
 <head>
 	<meta charset="utf-8"> 
 	<title>需求列表</title>
@@ -15,7 +15,7 @@
 	      <small th:text="${issue.createDateString}"></small>
 	    </div>
 	    <p class="mb-1" th:text="${issue.description}"></p>
-	    <small th:text="${issue.userId}"></small>
+	    <small th:text="${issue.user!=null?issue.user.name:''}"></small>
 	  </a>
   	</div>
 </div>

@@ -6,11 +6,13 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mnan2c.diet.controller.rest.dto.IssueDto;
+import com.mnan2c.diet.controller.rest.dto.UserDto;
 import com.mnan2c.diet.service.IDietCrudService;
 import com.mnan2c.diet.service.IssueService;
 import com.mnan2c.diet.service.UserService;
@@ -39,7 +41,10 @@ public class IssueController extends AbstractController<IssueDto> {
         .stream() //
         .map(issue -> {
           issue.setCreateDateString(issue.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-          issue.setUser(userService.findById(issue.getUserId()));
+          if (StringUtils.isNotBlank(issue.getUserId())) {
+            UserDto dto = userService.findById(issue.getUserId());
+            issue.setUser(dto);
+          }
           return issue;
         }) //
         .collect(Collectors.toList());
@@ -54,6 +59,12 @@ public class IssueController extends AbstractController<IssueDto> {
 
   @Override
   protected void addExtraAttributeForCreatePage(ModelAndView modelAndView) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  protected void addExtraAttributeForEditPage(ModelAndView modelAndView) {
     // TODO Auto-generated method stub
 
   }

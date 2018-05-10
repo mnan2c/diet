@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout/layout">
+<head>
+<meta charset="utf-8">
+<title>File Upload</title>
+	<style>
+	.bar {
+	    height: 18px;
+	    background: green;
+	}
+	</style>
+	<link rel="stylesheet" href="/css/jquery.fileupload.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="/js/jquery.ui.widget.js"></script>
+	<script src="/js/jquery.iframe-transport.js"></script>
+	<script src="/js/jquery.fileupload.js"></script>
+	<script>
+	var table;
+	$(function () {
+	    $('#fileupload').fileupload({
+	       	url: "/upload",
+	    	dataType: 'json',
+	        always: function(e, data){
+	        	window.location.reload();
+	        }
+	    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+	    
+	    initDataTable();
+	});
+	
+	function initDataTable(){
+		$.noConflict();
+		table = $("#fileTable").DataTable({
+			"bPaginate": false, //翻页功能 
+			"bLengthChange": false, //改变每页显示数据数量 
+			"bFilter": false, //过滤功能 
+			"bSort": false, //排序功能 
+			"bInfo": false,//页脚信息 
+			"bAutoWidth": true,
+			"ajax": "/files",
+			"columns":[
+				{ 
+					"data": "displayUrl",
+					"render": function(data, type, full) {
+						return "<a href='https://morgan-zmn.oss-cn-beijing.aliyuncs.com/" + full.url + "' target='_blank'>" + data + "</a>";
+					}
+				},
+				{ "data": "createdDateString"},
+				{ "data": null}
+			],
+			"columnDefs":[{
+				"targets": 2,
+				"render": function(data, type, row) {
+					return '<a href="javascript:void(0);" onclick="deleleRow(\'' + row.id + '\');" class="delete btn btn-default btn-xs"><i class="fa fa-times"></i> 删除</a>';
+				}
+			}]
+		});
+	}
+	
+	 function deleleRow(id){
+		$.ajax({
+			url: "/api/files/" + id,
+			method: "delete",
+			success: function(data) {
+				table.ajax.reload();  
+			}
+		});
+	} 
+	</script>
+</head>
+<body>
+	<div class="container" layout:fragment="content">
+	    <span class="btn btn-success fileinput-button">
+	        <i class="glyphicon glyphicon-plus"></i>
+	        <span>Select files...</span>
+	        <input id="fileupload" type="file" name="file" single>
+	    </span>
+	    <div id="files" class="files"></div>
+	    
+	    <table id="fileTable" class="display" style="width:100%;margin-top:30px;">
+			<thead> 
+		      <tr>
+		     	<th>Name</th>
+		     	<th>Created Date</th>
+		     	<th>Action</th>
+	     	  </tr> 
+		    </thead> 
+		</table>
+	</div>
+</body> 
+</html>

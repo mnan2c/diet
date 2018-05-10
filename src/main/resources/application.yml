@@ -2,6 +2,10 @@ spring:
   thymeleaf:
     mode: html
     cache: false
+  http:
+    multipart:
+      max-file-size: 100Mb
+      max-request-size: 100Mb
 #  mvc:
 #    static-path-pattern: classpath:/static/**
 #  resources:
@@ -29,7 +33,14 @@ logging:
   level:
     root: info 
 
-
-
+#oss
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    keyid: LTAIZQaEAP0eiTPf
+    keysecret: cbCCWzVIfZTtT1PuVd8X4JndUa36GZ
+    bucketname: morgan-zmn
+    filehost: diet
+    
 
 

@@ -1,11 +1,16 @@
 package com.mnan2c.diet.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +53,7 @@ public class UserController extends AbstractController<UserDto> {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView register(@ModelAttribute("object") UserDto user, RedirectAttributes redirectAttributes) {
     try {
-      validateVerifyCode(user);
+      // validateVerifyCode(user);
       userService.create(user);
     } catch (FieldListException e) {
       redirectAttributes.addFlashAttribute("message", e.getMessage());
@@ -93,5 +98,16 @@ public class UserController extends AbstractController<UserDto> {
   @Override
   protected void addExtraAttributeForCreatePage(ModelAndView modelAndView) {
     modelAndView.addObject("object", new UserDto());
+  }
+
+  @Override
+  protected void addExtraAttributeForEditPage(ModelAndView modelAndView) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @InitBinder
+  public void initBinder(WebDataBinder binder) {
+    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
   }
 }

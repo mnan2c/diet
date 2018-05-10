@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mnan2c.diet.constants.DietConstants;
 import com.mnan2c.diet.controller.rest.dto.AbstractDto;
+import com.mnan2c.diet.controller.rest.dto.UserDto;
 import com.mnan2c.diet.exceptions.FieldListException;
 import com.mnan2c.diet.service.IDietCrudService;
 
@@ -34,6 +36,14 @@ public abstract class AbstractController<T extends AbstractDto> {
   public ModelAndView createPage() {
     ModelAndView modelAndView = new ModelAndView(getMainPage() + "/form");
     addExtraAttributeForCreatePage(modelAndView);
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/edit", method = RequestMethod.GET)
+  public ModelAndView editPage(@ModelAttribute("object") T t) {
+    ModelAndView modelAndView = new ModelAndView(getMainPage() + "/form");
+    modelAndView.addObject("object", t);
+    addExtraAttributeForEditPage(modelAndView);
     return modelAndView;
   }
 
@@ -62,6 +72,10 @@ public abstract class AbstractController<T extends AbstractDto> {
     return new ModelAndView("forward:" + pageName);
   }
 
+  protected UserDto getUser() {
+    return (UserDto) session.getAttribute(DietConstants.SESSION_USER);
+  }
+
   protected abstract String getMainPage();
 
   protected abstract String getControllerUrl();
@@ -71,4 +85,6 @@ public abstract class AbstractController<T extends AbstractDto> {
   public abstract IDietCrudService<T> getCrudService();
 
   protected abstract void addExtraAttributeForCreatePage(ModelAndView modelAndView);
+
+  protected abstract void addExtraAttributeForEditPage(ModelAndView modelAndView);
 }

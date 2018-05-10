@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mnan2c.diet.constants.DietConstants;
 import com.mnan2c.diet.controller.rest.dto.UserDto;
-import com.mnan2c.diet.domain.constants.DietConstants;
 import com.mnan2c.diet.service.IDietCrudService;
 import com.mnan2c.diet.service.UserService;
 
@@ -28,6 +28,9 @@ public class LoginController extends AbstractController<UserDto> {
 
   @RequestMapping(value = {"/login", "/", ""}, method = RequestMethod.GET)
   public ModelAndView loginPage() {
+    if (session.getAttribute(DietConstants.SESSION_USER) != null) {
+      return indexPage();
+    }
     ModelAndView modelAndView = new ModelAndView("login");
     modelAndView.addObject("object", new UserDto());
     return modelAndView;
@@ -40,19 +43,23 @@ public class LoginController extends AbstractController<UserDto> {
       result.rejectValue("name", null, null, "user.not.exist");
       return new ModelAndView("login").addAllObjects(result.getModel());
     }
-    if (userService.findUserByNameAndPassword(user.getName(), user.getPassword()) == null) {
+    UserDto dto = userService.findUserByNameAndPassword(user.getName(), user.getPassword());
+    if (dto == null) {
       log.error("invalid password, name=[{}],password=[{}]", user.getName(), user.getPassword());
       result.rejectValue("password", null, null, "invalid.password");
       return new ModelAndView("login").addAllObjects(result.getModel());
     }
     // 设置session
-    session.setAttribute(DietConstants.SESSION_USER, user);
-    return new ModelAndView("index");
+    session.setAttribute(DietConstants.SESSION_USER, dto);
+    session.setMaxInactiveInterval(60 * 30);
+    return indexPage();
   }
 
   @GetMapping("/index")
   public ModelAndView indexPage() {
-    return new ModelAndView("index");
+    ModelAndView modelAndView = new ModelAndView("index");
+    modelAndView.addObject("user", session.getAttribute(DietConstants.SESSION_USER));
+    return modelAndView;
   }
 
   @Override
@@ -81,6 +88,12 @@ public class LoginController extends AbstractController<UserDto> {
 
   @Override
   protected void addExtraAttributeForCreatePage(ModelAndView modelAndView) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  protected void addExtraAttributeForEditPage(ModelAndView modelAndView) {
     // TODO Auto-generated method stub
 
   }

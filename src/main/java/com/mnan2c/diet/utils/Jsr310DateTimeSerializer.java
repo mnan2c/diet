@@ -6,7 +6,7 @@ import java.time.temporal.TemporalAccessor;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.mnan2c.diet.domain.constants.DietConstants;
+import com.mnan2c.diet.constants.DietConstants;
 
 public final class Jsr310DateTimeSerializer extends JsonSerializer<TemporalAccessor> {
 
