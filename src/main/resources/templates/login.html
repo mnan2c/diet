@@ -1,51 +1,59 @@
- <html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/images/favicon.ico">
-    <title>登录页面</title>
-	<link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/signin.css" rel="stylesheet">
-  </head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/images/favicon.png">
+<title>Login</title>
+<link rel="stylesheet" href="/plugins/bootstrap/bootstrap.min.css">
+<link href="/css/signin.css" rel="stylesheet">
 
-  <body>
-    <form th:object="${object}" class="form-signin" action="/loginPost" method="post">
-      <div class="text-center mb-4">
-        <img class="mb-4" src="/images/logo.png" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1> 
-      </div>
+<script src="/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/plugins/jscookie/js.cookie.js"></script>
+<script src="/js/local-login.js"></script>
+</head>
 
-      <div class="form-label-group">
-        <input type="name" name="name" id="inputName" class="form-control" placeholder="用户名" required autofocus>
-        <label for="inputName">Name</label>
-      </div>
+<body>
+	<form th:object="${object}" onsubmit="return rememberMe();"
+		class="form-signin" action="/loginPost" method="post">
+		<div class="text-center mb-4">
+			<img class="mb-4" src="/images/logo.png" alt="" width="72"
+				height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Login</h1>
+		</div>
 
-      <div class="form-label-group">
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <label for="inputPassword">Password</label>
-      </div>
+		<div class="form-label-group">
+			<input type="name" name="name" id="name" class="form-control"
+				placeholder="Name" required autofocus> <label for="name">Name</label>
+		</div>
 
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-      <div class="checkbox mb-3" style="text-align:right;margin-top:20px;float:left">
-        <label>
-          <a href="###">Forgot your password?</a>
-        </label>
-      </div>
-      <div class="checkbox mb-3" style="text-align:right;margin-top:20px;">
-        <label>
-          <a href="/users/register">No account? Register</a>
-        </label>
-      </div>
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2018-2019</p>
-    </form>
-  </body>
+		<div class="form-label-group">
+			<input type="password" name="password" id="password"
+				class="form-control" placeholder="Password" required> <label
+				for="password">Password</label>
+		</div>
+
+		<div class="checkbox mb-3">
+			<label> <input id="remember_me" type="checkbox"
+				value="remember-me"> Remember me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+		<div class="checkbox mb-3"
+			style="text-align: right; margin-top: 20px; float: left">
+			<label> Forgot your password? <a href="###">Reset</a>
+			</label>
+		</div>
+		<div class="checkbox mb-3"
+			style="text-align: right; margin-top: 20px;">
+			<label> No account? <a href="/users/register">Register</a>
+			</label>
+		</div>
+		<p class="mt-5 mb-3 text-muted text-center">&copy; 2018-2019</p>
+	</form>
+</body>
 </html>

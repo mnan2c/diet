@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.mnan2c.diet.constants.DietConstants;
 import com.mnan2c.diet.controller.rest.dto.UserDto;
 import com.mnan2c.diet.exceptions.FieldListException;
 import com.mnan2c.diet.exceptions.constants.ACommonErrorConstants;
@@ -61,6 +63,25 @@ public class UserController extends AbstractController<UserDto> {
     }
     redirectAttributes.addFlashAttribute("message", "Registered successfully.");
     return redirectTo("/login");
+  }
+
+  @GetMapping("/timeline")
+  public ModelAndView timeline() {
+    ModelAndView modelAndView = new ModelAndView("timeline/view");
+    return modelAndView;
+  }
+
+  @GetMapping("/timeline/edit")
+  public ModelAndView editTimelinePage() {
+    ModelAndView modelAndView = new ModelAndView("timeline/form");
+    return modelAndView;
+  }
+
+  @GetMapping("/age")
+  public ModelAndView currentAge() {
+    ModelAndView modelAndView = new ModelAndView("user/age");
+    modelAndView.addObject("user", session.getAttribute(DietConstants.SESSION_USER));
+    return modelAndView;
   }
 
   public void validateVerifyCode(UserDto user) throws FieldListException {

@@ -55,6 +55,12 @@ public class LoginController extends AbstractController<UserDto> {
     return indexPage();
   }
 
+  @PostMapping("/signout")
+  public ModelAndView signOut() {
+    session.removeAttribute(DietConstants.SESSION_USER);
+    return redirectTo("login");
+  }
+
   @GetMapping("/index")
   public ModelAndView indexPage() {
     ModelAndView modelAndView = new ModelAndView("index");
